@@ -16,6 +16,7 @@ export default function Fish(props) {
     actions["Idle"].reset().fadeIn(0.5).play();
     return () => actions["Idle"].fadeOut(0.5);
   }, []);
+  
 
   return (
     <group ref={group} {...props} dispose={null}>

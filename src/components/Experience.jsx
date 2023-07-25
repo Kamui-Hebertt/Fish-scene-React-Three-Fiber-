@@ -19,15 +19,15 @@ export const Experience = () => {
   {/* <mesh>
     <planeGeometry args={[2,3]} /> */}
     <MonsterStage texture={"textures/anime_art_style_lava_world.jpg"}>
-      <Dragon scale={0.6} position-y={-1} />
+      <Dragon scale={0.5} position-y={-1} />
     </MonsterStage>
 
     <MonsterStage texture={"textures/anime_art_style_a_water_based_pokemon_like_environ.jpg"} position-x={-2.5} rotation-y={Math.PI / 8}>
-      <Fish scale={0.6} position-y={-1}  />
+      <Fish scale={0.5} position-y={-1}  />
     </MonsterStage>
 
     <MonsterStage  texture={"textures/anime_art_style_cactus_forest.jpg"} position-x={2.5} rotation-y={-Math.PI / 8}>
-      <Cactoro scale={0.6} position-y={-1} />
+      <Cactoro scale={0.4} position-y={-1} />
     </MonsterStage>
  
 

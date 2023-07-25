@@ -10,7 +10,7 @@ export default function Fish(props) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Fish.gltf')
   const { actions } = useAnimations(animations, group);
-  console.log(actions);
+ 
 
   useEffect(()=>{
     actions["Idle"].reset().fadeIn(0.5).play();

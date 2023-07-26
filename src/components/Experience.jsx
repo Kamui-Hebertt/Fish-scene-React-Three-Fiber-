@@ -1,10 +1,14 @@
-import { Environment, MeshPortalMaterial, OrbitControls, RoundedBox, useTexture } from "@react-three/drei";
+import { Environment, MeshPortalMaterial, OrbitControls, RoundedBox, Text, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import Fish from '../components/Fish';
 import Dragon from '../components/Dragon';
 import Cactoro from '../components/Cactoro';
+import { useState } from "react";
+
+
 
 export const Experience = () => {
+  const [ active, setActive] = useState(null);
   // const map = useTexture(
   //   "textures/anime_art_style_a_water_based_pokemon_like_environ.jpg"
   // );
@@ -18,15 +22,31 @@ export const Experience = () => {
 
   {/* <mesh>
     <planeGeometry args={[2,3]} /> */}
-    <MonsterStage texture={"textures/anime_art_style_lava_world.jpg"}>
+    <MonsterStage 
+    name={"Dragon"} color={"#df8d52"} texture={"textures/anime_art_style_lava_world.jpg"}
+    active={active}
+    setActive={setActive}>
       <Dragon scale={0.5} position-y={-1} />
     </MonsterStage>
 
-    <MonsterStage texture={"textures/anime_art_style_a_water_based_pokemon_like_environ.jpg"} position-x={-2.5} rotation-y={Math.PI / 8}>
+    <MonsterStage name={"Fish King"} 
+    color={"#38adcf"}
+     texture={"textures/anime_art_style_a_water_based_pokemon_like_environ.jpg"} 
+     position-x={-2.5} rotation-y={Math.PI / 8}
+     active={active}
+     setActive={setActive}
+     
+     >
       <Fish scale={0.5} position-y={-1}  />
     </MonsterStage>
 
-    <MonsterStage  texture={"textures/anime_art_style_cactus_forest.jpg"} position-x={2.5} rotation-y={-Math.PI / 8}>
+    <MonsterStage name={"Cactoro"} 
+    color={"#739d3c"}
+      texture={"textures/anime_art_style_cactus_forest.jpg"} 
+      position-x={2.5} rotation-y={-Math.PI / 8}
+    active={active}
+    setActive={setActive}
+    >
       <Cactoro scale={0.4} position-y={-1} />
     </MonsterStage>
  
@@ -39,13 +59,19 @@ export const Experience = () => {
 };
 
 
-const MonsterStage = ({children, texture, ...props}) => {
+
+const MonsterStage = ({children, texture,color, name, active, setActive, ...props}) => {
   const map = useTexture(
     texture
   );
   return <group {...props}>
-    <RoundedBox args={[2,3,0.1]}>
-    <MeshPortalMaterial>
+
+   <Text font="fonts/Caprasimo-Regular.ttf" fontSize={0.3} position={[0, -1.3, 0.051]} anchorY={"bottom"} >
+    {name}
+    <meshBasicMaterial color={color} toneMapped={false} />
+   </Text>
+    <RoundedBox args={[2,3,0.1]} onDoubleClick={()=> setActive(active === name ? null : name)}>
+    <MeshPortalMaterial side={THREE.DoubleSide} blend={active === name ? 1 : 0}>
     <mesh>
     <ambientLight intensity={1} />
    <Environment preset="sunset" />

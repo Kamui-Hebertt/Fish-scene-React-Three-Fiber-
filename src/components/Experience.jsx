@@ -3,7 +3,9 @@ import * as THREE from "three";
 import Fish from '../components/Fish';
 import Dragon from '../components/Dragon';
 import Cactoro from '../components/Cactoro';
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
+import { easing } from "maath";
 
 
 
@@ -60,10 +62,19 @@ export const Experience = () => {
 
 
 
+
 const MonsterStage = ({children, texture,color, name, active, setActive, ...props}) => {
   const map = useTexture(
     texture
   );
+    const portalMaterial = useRef();
+
+    useFrame((_state, delta)=> {
+      const worldOpen = active === name;
+      easing.damp(portalMaterial.current, "blend", worldOpen ? 1 : 0, 0.2, delta)
+    })
+
+
   return <group {...props}>
 
    <Text font="fonts/Caprasimo-Regular.ttf" fontSize={0.3} position={[0, -1.3, 0.051]} anchorY={"bottom"} >
@@ -71,7 +82,10 @@ const MonsterStage = ({children, texture,color, name, active, setActive, ...prop
     <meshBasicMaterial color={color} toneMapped={false} />
    </Text>
     <RoundedBox args={[2,3,0.1]} onDoubleClick={()=> setActive(active === name ? null : name)}>
-    <MeshPortalMaterial side={THREE.DoubleSide} blend={active === name ? 1 : 0}>
+    <MeshPortalMaterial side={THREE.DoubleSide}
+    //  blend={active === name ? 1 : 0}
+    ref={portalMaterial}
+    >
     <mesh>
     <ambientLight intensity={1} />
    <Environment preset="sunset" />

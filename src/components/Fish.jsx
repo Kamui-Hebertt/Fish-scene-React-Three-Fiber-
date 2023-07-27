@@ -6,16 +6,17 @@ Command: npx gltfjsx@6.2.10 public/models/Fish.gltf -o src/components/Fish.jsx -
 import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
-export default function Fish(props) {
+export default function Fish({hovered,...props}) {
   const group = useRef()
   const { nodes, materials, animations } = useGLTF('/models/Fish.gltf')
   const { actions } = useAnimations(animations, group);
- 
+ console.log(actions)
 
   useEffect(()=>{
-    actions["Idle"].reset().fadeIn(0.5).play();
-    return () => actions["Idle"].fadeOut(0.5);
-  }, []);
+    const anim = hovered ? "Wave" : "Idle";
+    actions[anim].reset().fadeIn(0.5).play();
+    return () => actions[anim].fadeOut(0.5);
+  }, [hovered]);
   
 
   return (

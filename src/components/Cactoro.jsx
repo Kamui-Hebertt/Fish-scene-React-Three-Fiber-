@@ -6,12 +6,13 @@ Command: npx gltfjsx@6.2.10 public/models/Cactoro.gltf -o src/components/Cactoro
 import React, { useRef, useEffect } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
-export default function Cactoro(props) {
+export default function Cactoro({hovered,...props}) {
 
   useEffect(()=>{
-    actions["Idle"].reset().fadeIn(0.5).play();
-    return () => actions["Idle"].fadeOut(0.5);
-  }, []);
+    const anim = hovered ? "Dance" : "Idle";
+    actions[anim].reset().fadeIn(0.5).play();
+    return () => actions[anim].fadeOut(0.5);
+  }, [hovered]);
 
 
   const group = useRef()

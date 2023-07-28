@@ -1,1 +1,3 @@
 deploy link: https://fish-scene-react-three-fiber.vercel.app
+
+click on the lick and wait about 5 seconds
